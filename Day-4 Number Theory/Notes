@@ -1,5 +1,4 @@
 
-
 Mode Arithmetic:
 ------------------
 1) (a+b) % M = (a%M + b%M ) % M
