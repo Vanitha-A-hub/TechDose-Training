@@ -32,3 +32,12 @@ class Main {
     sc.close();
   }
 }
+
+
+/*
+Time Complexity:
+---------------
+Worst Case : O(N^2) => Array already sorted in our revered codition
+Best Case : O(N) => Array already sorted
+Average Case : O(N^2) => Array elements arranged in random order
+*/
