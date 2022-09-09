@@ -1,12 +1,3 @@
-/*
-Time Complexity 
------------------
-Best Case : O(N^2)
-Worst Case : O(N^2)
-Average Case : O(N^2)
-So not depend on nature of the input
-*/
-
 import java.util.Scanner;
 class Main {
   public static int[] selectionSort(int[] arr){
@@ -38,3 +29,12 @@ class Main {
     sc.close();
   }
 }
+
+/*
+Time Complexity 
+-----------------
+Best Case : O(N^2)
+Worst Case : O(N^2)
+Average Case : O(N^2)
+So not depend on nature of the input
+*/
