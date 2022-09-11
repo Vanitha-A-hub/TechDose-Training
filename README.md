@@ -1,1 +1,0 @@
-# TechDose-Training
