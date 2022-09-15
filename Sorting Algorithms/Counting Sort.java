@@ -19,7 +19,7 @@ class Main {
       freq[i]+=freq[i-1];
     }
     int m[]=new int[a.length];
-    for(int i=0;i<a.length;i++){
+    for(int i=a.length-1;i>=0;i--){
       freq[a[i]]--;
       m[freq[a[i]]]=a[i];
     }
