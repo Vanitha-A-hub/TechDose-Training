@@ -1,0 +1,25 @@
+class Solution {
+    public void quickSort(int [] nums,int low,int high){
+        if(low==high){
+            return;
+        }
+        int pivot=high,i=low-1,flag=0;
+        for(int j=low;j<=high;j++){
+            if(nums[j]<=nums[pivot]){
+                i++;
+                int temp=nums[i];
+                nums[i]=nums[j];
+                nums[j]=temp;
+                flag=1;
+            }
+        }
+        if(flag==1){
+            quickSort(nums,low,i-1);
+            quickSort(nums,i+1,high);
+        }
+    }
+    public int findKthLargest(int[] nums, int k) {
+        quickSort(nums,0,nums.length-1);
+        return nums[nums.length-k];
+    }
+}
