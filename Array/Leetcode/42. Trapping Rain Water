@@ -1,0 +1,24 @@
+class Solution {
+    public int trap(int[] height) {
+        int rMax[]=new int[height.length];
+        int lMax[]=new int[height.length];
+        int l=-1,r=-1;
+        for(int i=0;i<height.length;i++){
+            if(l<=height[i]){
+                l=height[i];
+            }
+            lMax[i]=l;
+        }
+        for(int i=height.length-1;i>=0;i--){
+            if(r<=height[i]){
+                r=height[i];
+            }
+            rMax[i]=r;
+        }
+        int s=0;
+        for(int i=0;i<height.length;i++){
+            s+=(Math.min(rMax[i],lMax[i])-height[i]);
+        }
+        return s;
+    }
+}
