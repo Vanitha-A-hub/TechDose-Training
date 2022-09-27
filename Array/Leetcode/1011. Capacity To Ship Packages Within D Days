@@ -1,0 +1,44 @@
+class Solution {
+    public int max(int[] weights){
+        int m=weights[0];
+        for(int i=1;i<weights.length;i++){
+            if(weights[i]>m){
+                m=weights[i];
+            }
+        }
+        return m;
+    }
+    public int sum(int[] w){
+        int s=0;
+        for(int a:w){
+            s+=a;
+        }
+        return s;
+    }
+    public int countDays(int[] w,int mid){
+        int tot=0,c=1;
+        for(int a:w){
+            tot+=a;
+            if(tot>mid){
+                c++;
+                tot=a;
+            }
+        }
+        return c;
+    }
+    public int shipWithinDays(int[] weights, int days) {
+        //binary search
+        int left=max(weights);
+        int right=sum(weights);
+        while(left<=right){
+            int mid=left+(right-left)/2;
+            int c=countDays(weights,mid);
+            if(c<=days){ //we need minimum least capacity
+                right=mid-1;
+            }else{
+                left=mid+1;
+            }
+        }
+        return left;
+    }
+}
