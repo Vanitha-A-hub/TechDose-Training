@@ -1,0 +1,28 @@
+class Solution {
+    public int shortestSubarray(int[] nums, int k) {
+        long pSum=0,count=Integer.MAX_VALUE;
+        Deque<long[]> d=new ArrayDeque<long[]>();
+        for(int i=0;i<nums.length;i++){
+            pSum+=nums[i];
+            if(pSum>=k){
+                count=Math.min(count,i+1); 
+            }
+            long[] curr=new long[]{Integer.MIN_VALUE,Integer.MIN_VALUE};
+            while(d.size()!=0 && pSum-d.peekFirst()[0] >= k){
+                curr=d.peekFirst();
+                d.pollFirst();
+            }
+            if(curr[0]!=Integer.MIN_VALUE){
+                count=Math.min(count,(i-curr[1]));
+            }
+            while(d.size()!=0 && pSum <= d.peekLast()[0]){
+                d.pollLast();
+            }
+            long a[]=new long[2];
+            a[0]=pSum;
+            a[1]=i;
+            d.add(a);
+        }
+        return count==Integer.MAX_VALUE?-1:(int)count;
+    }
+}
