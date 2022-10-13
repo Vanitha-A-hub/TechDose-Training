@@ -1,0 +1,29 @@
+class Solution {
+    public int equalPairs(int[][] grid) {
+        List<List<Integer>> rl=new ArrayList<>();
+        List<List<Integer>> cl=new ArrayList<>();
+        int c=0;
+        for(int i=0;i<grid.length;i++){
+            List<Integer> l=new ArrayList<>();
+            for(int j=0;j<grid.length;j++){
+                l.add(grid[i][j]);
+            }
+            rl.add(l);
+        }
+        for(int i=0;i<grid.length;i++){
+            List<Integer> l=new ArrayList<>();
+            for(int j=0;j<grid.length;j++){
+                l.add(grid[j][i]);
+            }
+            cl.add(l);
+        }
+        for(List<Integer> l:rl){
+            for(List<Integer> ll:cl){
+                if(l.equals(ll)){
+                    c++;
+                }
+            }
+        }
+        return c;
+    }
+}
