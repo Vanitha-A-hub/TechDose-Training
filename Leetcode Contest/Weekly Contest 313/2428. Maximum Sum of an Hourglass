@@ -1,0 +1,25 @@
+class Solution {
+    public int utilFun(int[][] grid,int i,int j){
+        int sum=0;
+        for(int r=i;r<i+3;r++){
+            for(int c=j;c<j+3;c++){
+                sum+=grid[r][c];
+            }
+        }
+        sum-=(grid[i+1][j]+grid[i+1][j+2]);
+        return sum;
+    }
+    public int maxSum(int[][] grid) {
+        int s=0;
+        for(int i=0;i<=grid.length-3;i++){
+            for(int j=0;j<=grid[0].length-3;j++){
+                int sum=0;
+                sum=utilFun(grid,i,j);
+                if(sum>s){
+                    s=sum;
+                }
+            }
+        }
+        return s;
+    }
+}
