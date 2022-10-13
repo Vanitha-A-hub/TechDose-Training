@@ -1,0 +1,7 @@
+class Solution {
+     public int maximumGroups(int[] grades) {
+        //1+2+3+...+n<=grades.length
+        //We have to find the n.
+         return (-1+(int)Math.sqrt(1+8*grades.length))/2;
+    }
+}
