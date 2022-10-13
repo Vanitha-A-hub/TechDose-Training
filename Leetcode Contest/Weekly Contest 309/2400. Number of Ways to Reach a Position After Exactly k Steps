@@ -1,0 +1,21 @@
+class Solution {
+    public int numberOfWays(int startPos, int endPos, int k) {
+        int dp[][]=new int[3000][k+1];
+        for(int i=0;i<3000;i++){
+            Arrays.fill(dp[i],-1);
+        }
+        return utilFunction(startPos,endPos,k,dp);
+    }
+    public int utilFunction(int start,int end,int k,int[][] dp){
+        if(k==0){
+            return (start==end)? 1:0;
+        }
+        if(dp[start+1000][k]!=-1){
+            return dp[start+1000][k];
+        }
+        int left=utilFunction(start-1,end,k-1,dp);
+        int right=utilFunction(start+1,end,k-1,dp);
+        dp[start+1000][k]=(left+right)%((int)1e9+7);
+        return dp[start+1000][k];
+    }
+}
