@@ -1,0 +1,17 @@
+class Solution {
+    public int partitionString(String s) {
+        String str="";
+        int ind=0;
+        for(int i=0;i<s.length();i++){
+            if( str.contains(String.valueOf(s.charAt(i))) == false){
+                str+=String.valueOf(s.charAt(i));
+            }
+            else{
+                ind++;
+                str="";
+                str+=String.valueOf(s.charAt(i));
+            }
+        }
+        return ind+1;
+    }
+}
