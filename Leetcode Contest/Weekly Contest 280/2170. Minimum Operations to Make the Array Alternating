@@ -1,0 +1,36 @@
+class Solution {
+    public int minimumOperations(int[] nums) {
+        Map<Integer,Integer> odd = new HashMap<>();
+        Map<Integer, Integer> even = new HashMap<>();
+        for (int i = 0; i < nums.length; i++) {
+            if (i%2 == 0) even.put(nums[i],even.getOrDefault(nums[i],0) + 1);
+            else odd.put(nums[i],odd.getOrDefault(nums[i],0) + 1);
+        }
+        int oddKey1 = 0, oddKey2 = 0;
+        int evenKey1 = 0, evenKey2 = 0;
+        odd.put(0,0);
+        even.put(0,0);
+        for (int key : odd.keySet()) {
+            if (odd.get(key) > odd.get(oddKey1)) {
+                oddKey2 = oddKey1;
+                oddKey1 = key;
+            } else if (odd.get(key) > odd.get(oddKey2)){
+                oddKey2 = key;
+            } 
+        }
+        
+        for (int key : even.keySet()) {
+            if (even.get(key) > even.get(evenKey1)) {
+                evenKey2 = evenKey1;
+                evenKey1 = key;
+            } else if (even.get(key) > even.get(evenKey2)){
+                evenKey2 = key;
+            } 
+        }
+        if (oddKey1 == evenKey1) 
+            return nums.length-Math.max(odd.get(oddKey1)+even.get(evenKey2)
+                                        , odd.get(oddKey2)+even.get(evenKey1)); 
+        
+        return nums.length-odd.get(oddKey1)-even.get(evenKey1);
+    }
+}
