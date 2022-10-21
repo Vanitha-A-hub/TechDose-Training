@@ -1,0 +1,22 @@
+public class Solution {
+    public boolean hasCycle(ListNode head) {
+        HashSet<ListNode> h = new HashSet<>();
+        while(head!=null)
+        {
+            if(h.contains(head))
+            {
+                return true;
+            }
+            h.add(head);
+            head = head.next;
+        }
+        return false;
+    }
+}
+
+/*
+    Time complexity: O(n). 
+    Only one traversal of the loop is needed.
+    Auxiliary Space: O(n). 
+    n is the space required to store the value in hashmap.
+*/
