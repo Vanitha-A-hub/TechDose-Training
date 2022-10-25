@@ -1,0 +1,19 @@
+class Solution {
+    public int carFleet(int target, int[] position, int[] speed) {
+        int a[][]=new int[position.length][2];
+        int pos=0,s=1;
+        for(int i=0;i<position.length;i++){
+            a[i][pos]=position[i];
+            a[i][s]=speed[i];
+        }
+        Arrays.sort(a,(first,second)->Integer.compare(second[pos],first[pos]));
+        Stack<Double> stack=new Stack<>();
+        for(int i=0;i<position.length;i++){
+            stack.push((double)(target-a[i][pos])/a[i][s]);
+            if(stack.size()>=2 && stack.peek()<=stack.get(stack.size()-2)){
+                stack.pop();
+            }
+        }
+        return stack.size();
+    }
+}
