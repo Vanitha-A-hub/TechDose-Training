@@ -1,17 +1,17 @@
 class Solution {
     public List<Integer> findAnagrams(String s, String p) {
         List<Integer> l=new ArrayList<>();
-        char pHash[]=new char[26];
+        Map<Character,Integer> map=new HashMap<>();
         for(char ch:p.toCharArray()){
-            pHash[ch-'a']++;
+            map.put(ch,map.getOrDefault(ch,0)+1);
         }
         int left=0,right=0;
         while(right<s.length()){
-            if(pHash[s.charAt(right)-'a']>0){
-                pHash[s.charAt(right)-'a']--;
+            if(map.getOrDefault(s.charAt(right),0)>0){
+                map.put(s.charAt(right),map.get(s.charAt(right))-1);
                 right++;
             }else{
-                pHash[s.charAt(left)-'a']++;
+                map.put(s.charAt(left),map.getOrDefault(s.charAt(left),0)+1);
                 left++;
             }
             if(right-left==p.length()){
