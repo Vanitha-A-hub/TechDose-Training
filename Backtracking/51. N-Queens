@@ -1,0 +1,41 @@
+class Solution {
+    public boolean isValid(int r,int c,List<int[]> queen){
+        for(int i=0;i<queen.size();i++){
+            int x=Math.abs(r-queen.get(i)[0]);
+            int y=Math.abs(c-queen.get(i)[1]);
+            if(x==0||y==0||x==y){
+                return false;
+            }
+        }
+        return true;
+    }
+    public void nQueens(int row,int n,char[][] chessBoard,List<int[]> queen,List<List<String>> res){
+        if(row==n){
+            List<String> rowString=new ArrayList<>();
+            for(char a[]:chessBoard){
+                rowString.add(new String(a));
+            }
+            res.add(rowString);
+            return;
+        }
+        for(int col=0;col<n;col++){
+            if(isValid(row,col,queen)){
+                chessBoard[row][col]='Q';
+                queen.add(new int[]{row,col});
+                nQueens(row+1,n,chessBoard,queen,res);
+                queen.remove(queen.size()-1);
+                chessBoard[row][col]='.';
+            }
+        }
+    }
+    public List<List<String>> solveNQueens(int n) {
+        List<List<String>> res=new ArrayList<>();
+        char chessBoard[][]=new char[n][n];
+        for(char a[]:chessBoard){
+            Arrays.fill(a,'.');
+        }
+        List<int[]> queen=new ArrayList<>();
+        nQueens(0,n,chessBoard,queen,res);
+        return res;
+    }
+}
