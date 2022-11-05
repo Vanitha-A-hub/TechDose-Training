@@ -1,0 +1,31 @@
+class Solution {
+    int ans=0;
+    public void nQueens(int row,int n,List<int[]> queen){
+        if(row==n){
+            ans++;
+            return;
+        }
+        for(int col=0;col<n;col++){
+            if(isValid(row,col,queen)){
+                queen.add(new int[]{row,col});
+                nQueens(row+1,n,queen);
+                queen.remove(queen.size()-1);
+            }
+        }
+    }
+    public boolean isValid(int r,int c,List<int[]> queen){
+        for(int i=0;i<queen.size();i++){
+            int x=Math.abs(r-queen.get(i)[0]);
+            int y=Math.abs(c-queen.get(i)[1]);
+            if(x==0||y==0||x==y){
+                return false;
+            }
+        }
+        return true;
+    }
+    public int totalNQueens(int n) {
+        List<int[]> queen=new ArrayList<>();
+        nQueens(0,n,queen);
+        return ans;
+    }
+}
