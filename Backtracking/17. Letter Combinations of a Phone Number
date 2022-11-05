@@ -1,0 +1,21 @@
+class Solution {
+    public List<String> letterCombinations(String digits) {
+        List<String> ans=new ArrayList<>();
+        if(digits.length()==0){
+            return ans;
+        }
+        String s="";
+       Combinations(0,digits,digits.length(),s,ans);
+        return ans;
+    }
+    public void Combinations(int start,String digits,int digLen,String s,List<String> ans){
+        if(start==digLen){
+            ans.add(s);
+            return;
+        }
+        String mapping[]=new String[]{"0","1","abc","def","ghi","jkl","mno","pqrs","tuv","wxyz"};
+        for(int i=0;i<mapping[digits.charAt(start)-'0'].length();i++){
+            Combinations(start+1,digits,digLen,s+mapping[digits.charAt(start)-'0'].charAt(i)+"",ans);
+        }
+    }
+}
