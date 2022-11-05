@@ -1,0 +1,42 @@
+class Solution {
+    int dx[]={-1,0,1,0};
+    int dy[]={0,1,0,-1};
+    public boolean exist(char[][] board, String word) {
+        for(int row=0;row<board.length;row++){
+            for(char col=0;col<board[0].length;col++){
+                char ch=board[row][col];
+                if(board[row][col]==word.charAt(0) && wordExist(board,word,row,col,1)){
+                    return true;
+                }
+                board[row][col]=ch;
+            }
+        }
+        return false;
+    }
+    public boolean wordExist(char[][] board,String word,int row,int col,int ind){
+        if(ind == word.length()){
+            return true;
+        }
+        board[row][col]='1';
+        for(int i=0;i<4;i++){
+            int x=row+dx[i];
+            int y=col+dy[i];
+            if(isValid(board,x,y)){
+                char ch=board[x][y];
+                if(board[x][y]==word.charAt(ind) && board[x][y]!='1'){
+                    if(wordExist(board,word,x,y,ind+1)){
+                        return true;
+                    }
+                }
+                board[x][y]=ch;
+            }
+        }
+        return false;
+    }
+    public boolean isValid(char board[][],int x,int y){
+        if(x>=0 && x<board.length && y>=0 && y<board[0].length){
+            return true;
+        }
+        return false;
+    }
+}
