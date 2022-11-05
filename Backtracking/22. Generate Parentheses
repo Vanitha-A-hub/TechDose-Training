@@ -1,0 +1,20 @@
+class Solution {
+    List<String> res=new ArrayList<>();
+    public List<String> generateParenthesis(int n) {
+        String s="";
+        Parenthesis(n,0,0,s);
+        return res;
+    }
+    public void Parenthesis(int n,int open,int close,String s){
+        if(open == close && open==n){
+            res.add(s);
+            return;
+        }
+        if(open<n){
+            Parenthesis(n,open+1,close,s+"(");
+        }
+        if(close<open){
+            Parenthesis(n,open,close+1,s+")");
+        }
+    }
+}
