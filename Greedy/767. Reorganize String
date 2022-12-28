@@ -1,0 +1,30 @@
+class Solution {
+    public String reorganizeString(String s) {
+        Map<Character,Integer> map=new HashMap<>();
+        for(char ch:s.toCharArray()){
+            map.put(ch,map.getOrDefault(ch,0)+1);
+        }
+        Queue<Map.Entry<Character,Integer>> pq=new PriorityQueue<>((a,b)->b.getValue()-a.getValue());
+        pq.addAll(map.entrySet());
+        String ans="";
+        while(!pq.isEmpty()){
+            Map.Entry<Character,Integer> temp1=pq.poll();
+            if(ans.equals("") || ans.charAt(ans.length()-1)!=temp1.getKey()){
+                ans+=temp1.getKey();
+                temp1.setValue(temp1.getValue()-1);
+            }else{
+                Map.Entry<Character,Integer> temp2=pq.poll();
+                if(temp2==null) return "";
+                ans+=temp2.getKey();
+                temp2.setValue(temp2.getValue()-1);
+                if(temp2.getValue()!=0){
+                    pq.add(temp2);
+                }
+            }
+            if(temp1.getValue()!=0){
+                pq.add(temp1);
+            }
+        }
+        return ans;
+    }
+}
