@@ -1,0 +1,30 @@
+class Solution {
+    public int leastInterval(char[] tasks, int n) {
+        int alphaCount[]=new int[26];
+        for(char ch:tasks){
+            alphaCount[ch-'A']++;
+        }
+        PriorityQueue<Integer> pq=new PriorityQueue<>((a,b)->b-a);
+        Queue<Pair<Integer,Integer>> q=new LinkedList<>();
+        for(int i:alphaCount){
+            if(i>0){
+                pq.add(i);
+            }
+        }
+        int time=0;
+        while(!pq.isEmpty()||!q.isEmpty()){
+            time++;
+            if(!pq.isEmpty()){
+                int val=pq.poll();
+                val--;
+                if(val>0){
+                    q.add(new Pair(val,time+n));
+                }
+            }
+            if(!q.isEmpty() && q.peek().getValue()==time){
+                pq.add(q.poll().getKey());
+            }
+        }
+        return time;
+    }
+}
