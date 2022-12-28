@@ -1,0 +1,13 @@
+class Solution {
+    public int superEggDrop(int eggs, int floors){
+        int dp[][]=new int[floors+1][eggs+1];
+        int moves=0;
+        while(dp[moves][eggs]<floors){
+            moves++;
+            for(int i=1;i<=eggs;i++){
+                dp[moves][i]=dp[moves-1][i-1]+dp[moves-1][i]+1;
+            }
+        }
+        return moves;
+    }
+}
