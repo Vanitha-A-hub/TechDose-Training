@@ -1,0 +1,22 @@
+class Solution {
+    public int maxCoins(int[] nums) {
+        int dp[][]=new int[nums.length][nums.length];
+        return burst(0,nums.length-1,dp,nums);
+    }
+    public int burst(int left,int right,int[][] dp,int nums[]){
+        if(left>right){
+            return 0;
+        }
+        if(dp[left][right]!=0){
+            return dp[left][right];
+        }
+        for(int i=left;i<=right;i++){
+            int coins=nums[i];
+            if(left-1>=0) coins*=nums[left-1];
+            if(right+1<nums.length) coins*=nums[right+1];
+            coins+=burst(left,i-1,dp,nums)+burst(i+1,right,dp,nums);
+            dp[left][right]=Math.max(dp[left][right],coins);
+        }
+        return dp[left][right];
+    }
+}
