@@ -1,0 +1,57 @@
+class WordDictionary {
+    class Node{
+        char ch;
+        boolean isEnd;
+        Node[] alpha;
+        Node(char ch){
+            this.ch=ch;
+            this.isEnd=false;
+            this.alpha=new Node[26];
+        }
+    }
+    Node root;
+    public WordDictionary() {
+        root=new Node('\0');
+    }
+    
+    public void addWord(String word) {
+        Node curr=root;
+        for(char ch:word.toCharArray()){
+            if(curr.alpha[ch-'a']==null){
+                curr.alpha[ch-'a']=new Node(ch);
+            }
+            curr=curr.alpha[ch-'a'];
+        }
+        curr.isEnd=true;
+    }
+    
+    public boolean search(String word) {
+        Node curr=root;
+        return helper(word,curr,0);
+    }
+    public boolean helper(String word,Node curr,int ind){
+        for(int i=ind;i<word.length();i++){
+            char ch=word.charAt(i);
+            if(ch=='.'){
+                for(Node temp:curr.alpha){
+                    if(temp!=null && helper(word,temp,i+1)){
+                        return true;
+                    }
+                }
+                return false;
+            }
+            if(curr.alpha[ch-'a']==null){
+                return false;
+            }
+            curr=curr.alpha[ch-'a'];
+        }
+        return curr.isEnd;
+    }
+}
+
+/**
+ * Your WordDictionary object will be instantiated and called as such:
+ * WordDictionary obj = new WordDictionary();
+ * obj.addWord(word);
+ * boolean param_2 = obj.search(word);
+ */
