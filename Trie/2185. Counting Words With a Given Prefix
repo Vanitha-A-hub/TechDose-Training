@@ -1,0 +1,41 @@
+class Solution {
+    class Node{
+        char ch;
+        boolean isEnd;
+        Node[] alpha;
+        int count=0;
+        Node(char ch){
+            this.ch=ch;
+            isEnd=false;
+            alpha=new Node[26];
+            count=0;
+        }
+    }
+    Node root=new Node('\0');
+    public void insert(String s){
+        Node curr=root;
+        for(char ch:s.toCharArray()){
+            if(curr.alpha[ch-'a']==null){
+                curr.alpha[ch-'a']=new Node(ch);
+            }
+            curr=curr.alpha[ch-'a'];
+            curr.count++;
+        }
+    }
+    public int findCount(String p){
+        Node curr=root;
+        for(char ch:p.toCharArray()){
+            if(curr.alpha[ch-'a']==null){
+                return 0;
+            }
+            curr=curr.alpha[ch-'a'];
+        }
+        return curr.count;
+    }
+    public int prefixCount(String[] words, String pref) {
+        for(String word:words){
+            insert(word);
+        }
+        return findCount(pref);
+    }
+}
