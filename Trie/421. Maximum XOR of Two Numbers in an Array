@@ -1,0 +1,50 @@
+class Node{
+    int n;
+    boolean isEnd;
+    Node[] alpha;
+    Node(int n){
+        this.n=n;
+        isEnd=false;
+        alpha=new Node[2];
+    }
+}
+class Trie{
+    Node root;
+    Trie(){
+        root=new Node(-1);
+    }
+    public void insert(int n){
+        Node curr=root;
+        for(int i=31;i>=0;i--){
+            int val=(n>>i) & 1;
+            if(curr.alpha[val]==null){
+                curr.alpha[val]=new Node(val);
+            }
+            curr = curr.alpha[val];
+        }
+    }
+}
+class Solution {
+    public int findMaximumXOR(int[] nums) {
+        Trie t=new Trie();
+        int max=Integer.MIN_VALUE;
+        for(int n:nums){
+            t.insert(n);
+        }
+        for(int n:nums){
+            int currVal=0;
+            Node curr=t.root;
+            for(int i=31;i>=0;i--){
+                int val=1-((n>>i)&1);
+                if(curr.alpha[val]!=null){
+                    currVal+=1<<i;
+                    curr=curr.alpha[val];
+                }else{
+                    curr=curr.alpha[1-val];
+                }
+            }
+            max=Math.max(max,currVal);
+        }
+        return max;
+    }
+}
