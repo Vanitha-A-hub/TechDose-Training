@@ -1,0 +1,56 @@
+class Trie{
+    Node root;
+    Trie(){
+        root=new Node('\0');
+    }
+    public void insert(String s){
+        Node curr=root;
+        for(char ch:s.toCharArray()){
+            if(curr.alpha[ch-'a']==null){
+                curr.alpha[ch-'a']=new Node(ch);
+            }
+            curr=curr.alpha[ch-'a'];
+        }
+        curr.isEnd=true;
+    }
+}
+class Node{
+    char ch;
+    boolean isEnd;
+    Node alpha[];
+    Node(char ch){
+        this.ch=ch;
+        isEnd=false;
+        alpha=new Node[26];
+    }
+}
+class Solution {
+    public boolean wordBreak(String s, List<String> wordDict) {
+        Trie t=new Trie();
+        for(String w:wordDict){
+            t.insert(w);
+        }
+        int start=0;
+        Queue<Node> q=new LinkedList<>();
+        q.add(t.root);
+        boolean visited[]=new boolean[s.length()];
+        while(!q.isEmpty() && start<s.length()){
+            int size=q.size();
+            for(int i=0;i<size;i++){
+                Node curr=q.poll();
+                if(curr.alpha[s.charAt(start)-'a']!=null){
+                    q.add(curr.alpha[s.charAt(start)-'a']);
+                    if(curr.alpha[s.charAt(start)-'a'].isEnd && !visited[start]){
+                        visited[start]=true;
+                        q.add(t.root);
+                    } 
+                }
+            }
+            start++;
+        }
+        if(start==s.length() && visited[start-1]){
+            return true;
+        }
+        return false;
+    }
+}
